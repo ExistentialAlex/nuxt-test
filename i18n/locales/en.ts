@@ -1,4 +1,4 @@
-import type { II18nFunctions } from '@/types';
+import type { II18nFunctions } from '~/types';
 
 export const en = {
   navbar: {

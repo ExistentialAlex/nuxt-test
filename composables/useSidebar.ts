@@ -1,4 +1,4 @@
-import { RouteHrefs } from '@/types';
+import { RouteHrefs } from '~/types';
 import { AdtIcons, FeatherIcons, type IAdtSidebarGroup } from '@sky-uk/adtech-ui-components';
 import type { InjectionKey, Ref } from 'vue';
 import { useI18n } from 'vue-i18n';

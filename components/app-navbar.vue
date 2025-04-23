@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IAppBreadcrumb } from '@/types';
+import type { IAppBreadcrumb } from '~/types';
 import {
   AdtBgColors,
   AdtBorderColors,

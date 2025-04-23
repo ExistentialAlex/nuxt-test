@@ -8,11 +8,13 @@ import {
   useTailwind,
 } from '@sky-uk/adtech-ui-components';
 import { injectStrict } from '@sky-uk/adtech-vue-utils';
+import type { IAppBreadcrumb } from '~/types';
 
 const { loggedIn, clear: clearSession } = useUserSession();
 const { borderColorClass } = useTailwind();
 const { sidebarModel, sidebarItems } = injectStrict(useSidebarInjectionKey);
 const { t } = useI18n();
+const route = useRoute();
 
 const logout = async () => {
   await clearSession();
@@ -83,7 +85,10 @@ const logout = async () => {
       </template>
     </AdtSidebar>
     <main id="app-main" class="grid flex-1">
-      <AppNavbar v-model:sidebar="sidebarModel" />
+      <AppNavbar
+        v-model:sidebar="sidebarModel"
+        :breadcrumbs="route.meta.breadcrumbs as IAppBreadcrumb[]"
+      />
       <slot></slot>
     </main>
   </div>

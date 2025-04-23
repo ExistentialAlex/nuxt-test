@@ -1,5 +1,5 @@
 import type { MessageSchema } from '@/i18n/locales/en';
-import type { ShapeOf } from '@/types/types/shape-of.type';
+import type { ShapeOf } from '~/types/types/shape-of.type';
 import type { IAdtRoute } from '@sky-uk/adtech-ui-components';
 import type { RouteLocationNormalized } from 'vue-router';
 

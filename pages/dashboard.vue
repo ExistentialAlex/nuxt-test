@@ -1,6 +1,12 @@
 <script setup lang="ts">
 definePageMeta({
   middleware: ['authenticated'],
+  breadcrumbs: [
+    {
+      href: '/dashboard',
+      title: 'sidebar.dashboard',
+    },
+  ],
 });
 </script>
 <template>
