@@ -16,6 +16,14 @@ const { backgroundColorClass } = useTailwind();
 const sidebarModel = ref(true);
 const sidebar = useSidebar(sidebarModel);
 
+useColorMode({
+  emitAuto: true,
+  modes: {
+    dark: 'dark',
+    light: '',
+  },
+});
+
 provide(useSidebarInjectionKey, sidebar);
 </script>
 <template>

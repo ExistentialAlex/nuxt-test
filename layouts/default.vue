@@ -6,12 +6,14 @@ import {
   AdtIcons,
   AdtTooltip,
   useTailwind,
+  AdtTextColors,
+  AdtAvatar,
 } from '@sky-uk/adtech-ui-components';
 import { injectStrict } from '@sky-uk/adtech-vue-utils';
 import type { IAppBreadcrumb } from '~/types';
 
-const { loggedIn, clear: clearSession } = useUserSession();
-const { borderColorClass } = useTailwind();
+const { loggedIn, clear: clearSession, user } = useUserSession();
+const { borderColorClass, textColorClass } = useTailwind();
 const { sidebarModel, sidebarItems } = injectStrict(useSidebarInjectionKey);
 const { t } = useI18n();
 
@@ -19,6 +21,16 @@ const logout = async () => {
   await clearSession();
   await navigateTo('/login');
 };
+
+const initials = computed(() => {
+  const allNames = (user.value?.name || '').trim().split(' ');
+  return allNames.reduce((acc, curr, index) => {
+    if (index === 0 || index === allNames.length - 1) {
+      acc = `${acc}${curr.charAt(0).toUpperCase()}`;
+    }
+    return acc;
+  }, '');
+});
 </script>
 <template>
   <div class="[ app ] flex min-h-screen">
@@ -28,10 +40,9 @@ const logout = async () => {
       :items="sidebarItems"
       class="sticky top-0 z-20 flex h-screen flex-col"
     >
-      <!-- <template #top="{ open }">
+      <template #top="{ open }">
         <div class="flex items-center gap-3 px-4 pt-4 pb-2">
-          <AdtAvatar :model-value="user" />
-
+          <AdtAvatar :model-value="initials" />
           <div
             v-if="open"
             class="flex min-h-10 min-w-12 flex-col whitespace-nowrap"
@@ -41,7 +52,7 @@ const logout = async () => {
               data-testid="user-name"
               :class="textColorClass(AdtTextColors[600])"
             >
-              {{ getOAuthUser?.displayName }}
+              {{ user?.name }}
             </h5>
             <span
               id="user-role"
@@ -53,7 +64,7 @@ const logout = async () => {
             </span>
           </div>
         </div>
-      </template> -->
+      </template>
       <template #bottom="{ open }">
         <div
           class="relative mt-auto border-t px-4 py-3"
