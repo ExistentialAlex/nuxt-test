@@ -1,9 +1,10 @@
 <script setup lang="ts">
 definePageMeta({
+  name: 'home',
   middleware: ['authenticated'],
   breadcrumbs: [
     {
-      href: '/home',
+      href: '/',
       title: 'sidebar.home',
     },
   ],
