@@ -1,8 +1,18 @@
-# Nuxt Minimal Starter
+# Nuxt Test
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is a PoC for using Nuxt for the development of the AdFinity product suite.
 
-## Setup
+It explores adding some basic pages and endpoints plus user authentication.
+
+---
+
+For more info on Nuxt, look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+
+## Running Locally
+
+To try this out locally, follow the steps below:
+
+### Setup
 
 Make sure to install dependencies:
 
@@ -20,7 +30,30 @@ yarn install
 bun install
 ```
 
-## Development Server
+### Add Environment Variables
+
+As this app uses Github OAuth for authentication, there's some additional config needed to get it to work.
+
+1. In the root of your local project, create a `.env` file if needed.
+2. Add the following content to it:
+
+    ```txt
+    NUXT_OAUTH_GITHUB_CLIENT_ID=<your client ID>
+    NUXT_OAUTH_GITHUB_CLIENT_SECRET=<your client secret>
+    ```
+
+3. Follow these instructions to [Create a Github OAuth App](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) and put the client ID and secret in the `.env` file.
+
+You're now ready to run Nuxt locally using OAuth.
+
+---
+
+To login with username and password, use the following credentials:
+
+- email: `admin@admin.com`
+- password: `iamtheadmin`
+
+### Development Server
 
 Start the development server on `http://localhost:3000`:
 
@@ -38,7 +71,7 @@ yarn dev
 bun run dev
 ```
 
-## Production
+### Production
 
 Build the application for production:
 
