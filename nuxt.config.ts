@@ -22,4 +22,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  'adt-auth': {
+    redirectPath: '/dashboard',
+  },
 });

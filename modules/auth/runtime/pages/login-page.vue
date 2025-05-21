@@ -7,10 +7,7 @@ import {
 } from '@sky-uk/adtech-ui-components';
 import doublet from 'doublet';
 
-definePageMeta({
-  layout: 'none',
-});
-
+const route = useRoute();
 const { fetch: refreshSession, openInPopup, loggedIn } = useUserSession();
 const credentials = reactive({
   email: '',
@@ -27,7 +24,7 @@ const login = async () => {
   }
 
   await refreshSession();
-  await navigateTo({ name: 'home' });
+  await navigateTo(route.meta.redirectPath as string);
 };
 
 watch(
@@ -35,7 +32,7 @@ watch(
   async () => {
     if (loggedIn.value) {
       await refreshSession();
-      await navigateTo({ name: 'home' });
+      await navigateTo(route.meta.redirectPath as string);
     }
   },
   { immediate: true }
