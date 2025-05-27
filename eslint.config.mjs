@@ -14,6 +14,13 @@ export default withNuxt(
           },
         },
       ],
+      'no-else-return': [
+        'error',
+        {
+          allowElseIf: false,
+        },
+      ],
+      'func-style': ['error', 'expression'],
     },
   }
 );

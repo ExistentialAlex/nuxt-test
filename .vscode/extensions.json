@@ -4,6 +4,7 @@
     "aaron-bond.better-comments",
     "dbaeumer.vscode-eslint",
     "bradlc.vscode-tailwindcss",
-    "vitest.explorer"
+    "vitest.explorer",
+    "esbenp.prettier-vscode"
   ]
 }

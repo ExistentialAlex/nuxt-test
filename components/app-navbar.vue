@@ -32,8 +32,7 @@ const props = defineProps<IAppNavbarProps>();
 const emit = defineEmits<IAppNavbarEmits>();
 
 const { t } = useI18n();
-const { backgroundColorClass, borderColorClass, textColorClass } =
-  useTailwind();
+const { backgroundColorClass, borderColorClass, textColorClass } = useTailwind();
 
 const mode = useColorMode({
   emitAuto: true,
@@ -67,9 +66,7 @@ const processedBreadcrumbs = computed<IAdtRoute[]>(() => {
 
   return props.breadcrumbs.map((bc) => {
     if (bc.params) {
-      const params = Object.fromEntries(
-        Object.entries(bc.params).map(([k, v]) => [k, v(route)])
-      );
+      const params = Object.fromEntries(Object.entries(bc.params).map(([k, v]) => [k, v(route)]));
       return { ...bc, title: t(bc.title, params) };
     }
 
@@ -86,10 +83,7 @@ const sidebarValue = computed({
   <nav
     id="topnav"
     class="sticky top-0 z-10 flex w-full items-center border-b p-2"
-    :class="[
-      backgroundColorClass(AdtBgColors[50]),
-      borderColorClass(AdtBorderColors[50]),
-    ]"
+    :class="[backgroundColorClass(AdtBgColors[50]), borderColorClass(AdtBorderColors[50])]"
   >
     <AdtButton
       class="mr-2"
@@ -99,10 +93,7 @@ const sidebarValue = computed({
     >
       <AdtIcon :model-value="AdtIcons.sidebar" />
     </AdtButton>
-    <AdtBreadcrumb
-      v-if="!!processedBreadcrumbs.length"
-      :routes="processedBreadcrumbs"
-    />
+    <AdtBreadcrumb v-if="!!processedBreadcrumbs.length" :routes="processedBreadcrumbs" />
     <AdtPopover class="ml-auto" :offset="16">
       <template #trigger="{ toggleOpen }">
         <AdtButton appearance="icon" border-radius="full" @click="toggleOpen">
@@ -118,11 +109,7 @@ const sidebarValue = computed({
           {{ t('navbar.colorMode.title') }}
         </p>
         <AdtTabs v-model="mode" :tabs="colorModeTabs" pills>
-          <template
-            v-for="tab in colorModeTabs"
-            :key="tab.key"
-            #[`tab-title-${tab.key}`]
-          >
+          <template v-for="tab in colorModeTabs" :key="tab.key" #[`tab-title-${tab.key}`]>
             <div class="flex items-center">
               <AdtIcon :model-value="tab.icon" class="mr-2" />
               <p>{{ tab.title }}</p>
