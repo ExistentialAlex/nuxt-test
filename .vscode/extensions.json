@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "nuxtr.nuxt-vscode-extentions",
+    "aaron-bond.better-comments",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "vitest.explorer"
+  ]
+}

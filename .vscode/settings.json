@@ -1,5 +1,7 @@
 {
-    "nuxtr.vueFiles.firstTag": "script",
-    "nuxtr.vueFiles.style.alwaysScoped": false,
-    "nuxtr.vueFiles.style.addStyleTag": false,
+  "nuxtr.vueFiles.firstTag": "script",
+  "nuxtr.vueFiles.style.alwaysScoped": false,
+  "nuxtr.vueFiles.style.addStyleTag": false,
+  "editor.codeActionsOnSave": { "source.fixAll": "explicit" },
+  "editor.formatOnSave": true
 }
