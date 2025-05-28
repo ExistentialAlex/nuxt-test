@@ -20,7 +20,7 @@ export default withNuxt(
           allowElseIf: false,
         },
       ],
-      'func-style': ['error', 'expression'],
+      'func-style': ['warn', 'expression'],
     },
   }
 );
