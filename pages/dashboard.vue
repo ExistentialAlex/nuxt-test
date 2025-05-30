@@ -3,8 +3,8 @@ definePageMeta({
   middleware: ['authenticated'],
   breadcrumbs: [
     {
-      href: '/dashboard',
-      title: 'sidebar.dashboard',
+      to: '/dashboard',
+      label: 'sidebar.dashboard',
     },
   ],
 });

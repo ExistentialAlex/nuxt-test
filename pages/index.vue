@@ -4,8 +4,8 @@ definePageMeta({
   middleware: ['authenticated'],
   breadcrumbs: [
     {
-      href: '/',
-      title: 'sidebar.home',
+      to: '/',
+      label: 'sidebar.home',
     },
   ],
 });

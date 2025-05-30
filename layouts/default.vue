@@ -1,101 +1,36 @@
 <script setup lang="ts">
 import AppNavbar from '~/components/app-navbar.vue';
-import {
-  AdtSidebar,
-  AdtSidebarItem,
-  AdtIcons,
-  AdtTooltip,
-  useTailwind,
-  AdtTextColors,
-  AdtAvatar,
-} from '@sky-uk/adtech-ui-components';
 import { injectStrict } from '@sky-uk/adtech-vue-utils';
 import type { IAppBreadcrumb } from '~/types';
 
-const { loggedIn, clear: clearSession, user } = useUserSession();
-const { borderColorClass, textColorClass } = useTailwind();
+const { loggedIn, user } = useUserSession();
 const { sidebarModel, sidebarItems } = injectStrict(useSidebarInjectionKey);
-const { t } = useI18n();
-
-const logout = async () => {
-  await clearSession();
-  await navigateTo('/login');
-};
-
-const initials = computed(() => {
-  const allNames = (user.value?.name || '').trim().split(' ');
-  return allNames.reduce((acc, curr, index) => {
-    if (index === 0 || index === allNames.length - 1) {
-      acc = `${acc}${curr.charAt(0).toUpperCase()}`;
-    }
-    return acc;
-  }, '');
-});
 </script>
 <template>
   <div class="[ app ] flex min-h-screen">
-    <AdtSidebar
-      v-if="loggedIn"
-      v-model="sidebarModel"
-      :items="sidebarItems"
-      class="sticky top-0 z-20 flex h-screen flex-col"
-    >
-      <template #top="{ open }">
-        <div class="flex items-center gap-3 px-4 pt-4 pb-2">
-          <AdtAvatar :model-value="initials" />
-          <div
-            v-if="open"
-            class="flex min-h-10 min-w-12 flex-col whitespace-nowrap"
-          >
-            <h5
-              id="user-name"
-              data-testid="user-name"
-              :class="textColorClass(AdtTextColors[600])"
-            >
-              {{ user?.name }}
-            </h5>
-            <span
-              id="user-role"
-              data-testid="user-role"
-              class="text-start text-[12px]"
-              :class="textColorClass(AdtTextColors[600])"
-            >
-              Developer
-            </span>
-          </div>
+    <div v-if="loggedIn" class="flex h-screen flex-col border-r border-neutral-800 p-4">
+      <div class="mb-4 flex items-center gap-3">
+        <UAvatar :alt="user?.name" />
+        <div v-if="!sidebarModel" class="flex flex-col justify-center whitespace-nowrap">
+          <h5 id="user-name" data-testid="user-name" class="text-xs">
+            {{ user?.name }}
+          </h5>
+          <span id="user-role" data-testid="user-role" class="text-start text-[10px]">
+            Developer
+          </span>
         </div>
-      </template>
-      <template #bottom="{ open }">
-        <div
-          class="relative mt-auto border-t px-4 py-3"
-          :class="[borderColorClass('50')]"
-        >
-          <AdtTooltip
-            placement="right-center"
-            data-testid="sidebar__sign-out-tooltip"
-            :disable-hover="open"
-          >
-            {{ t('sidebar.signOut') }}
-            <template #activator>
-              <AdtSidebarItem
-                :model-value="{
-                  icon: AdtIcons.signOut,
-                  href: '',
-                  id: 'sign-out',
-                  title: t('sidebar.signOut'),
-                }"
-                no-link
-                data-testid="sidebar__sign-out"
-                :sidebar-open="open"
-                @click="logout"
-              />
-            </template>
-          </AdtTooltip>
-        </div>
-      </template>
-    </AdtSidebar>
+      </div>
+      <UNavigationMenu
+        :collapsed="sidebarModel"
+        :items="sidebarItems"
+        orientation="vertical"
+        variant="pill"
+        tooltip
+      />
+    </div>
     <main id="app-main" class="grid flex-1">
       <AppNavbar
+        v-if="loggedIn"
         v-model:sidebar="sidebarModel"
         :breadcrumbs="$route.meta.breadcrumbs as IAppBreadcrumb[]"
       />

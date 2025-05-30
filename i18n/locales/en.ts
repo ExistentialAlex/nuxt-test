@@ -5,7 +5,7 @@ export const en = {
     quickSettings: 'Quick Settings',
     colorMode: {
       title: 'Colour Mode',
-      auto: 'Auto',
+      system: 'System',
       light: 'Light',
       dark: 'Dark',
     },

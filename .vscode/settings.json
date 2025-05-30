@@ -3,5 +3,13 @@
   "nuxtr.vueFiles.style.alwaysScoped": false,
   "nuxtr.vueFiles.style.addStyleTag": false,
   "editor.codeActionsOnSave": { "source.fixAll": "explicit" },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.classAttributes": ["class", "ui"],
+  "tailwindCSS.experimental.classRegex": [["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]]
 }

@@ -4,7 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  ssr: false,
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',
@@ -13,16 +12,18 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/i18n',
     '@pinia/nuxt',
+    '@nuxt/ui',
   ],
-  css: [
-    '~/node_modules/@sky-uk/adtech-ui-components/dist/tailwind.css',
-    '~/node_modules/@sky-uk/adtech-ui-components/dist/adtech-ui-components.css',
-    '~/assets/css/index.css',
-  ],
+  css: ['~/assets/css/index.css'],
   vite: {
     plugins: [tailwindcss()],
   },
   'adt-auth': {
     redirectPath: '/dashboard',
+  },
+  i18n: {
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
   },
 });

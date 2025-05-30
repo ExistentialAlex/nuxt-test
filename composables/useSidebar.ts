@@ -1,44 +1,31 @@
 import { RouteHrefs } from '~/types';
-import { AdtIcons, FeatherIcons, type IAdtSidebarGroup } from '@sky-uk/adtech-ui-components';
 import type { InjectionKey, Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import type { NavigationMenuItem } from '@nuxt/ui';
 
 export const useSidebar = (sidebarModel: Ref<boolean>) => {
   const { t } = useI18n();
 
   const toggleSidebar = () => (sidebarModel.value = !sidebarModel.value);
 
-  const home: IAdtSidebarGroup = {
-    id: 'home',
-    title: t('sidebar.home'),
-    routes: [
-      {
-        id: 'home',
-        title: t('sidebar.home'),
-        href: RouteHrefs.home,
-        icon: FeatherIcons.home,
-      },
-    ],
+  const home: NavigationMenuItem = {
+    value: 'home',
+    label: t('sidebar.home'),
+    to: RouteHrefs.home,
+    icon: 'i-fe-home',
   };
 
-  const dashboard: IAdtSidebarGroup = {
-    id: 'dashboard',
-    title: t('sidebar.dashboard'),
-    routes: [
-      {
-        id: 'dashboard',
-        title: t('sidebar.dashboard'),
-        href: RouteHrefs.dashboard,
-        icon: AdtIcons.dashboard,
-      },
-    ],
+  const dashboard: NavigationMenuItem = {
+    value: 'dashboard',
+    label: t('sidebar.dashboard'),
+    to: RouteHrefs.dashboard,
+    icon: 'i-fe-browser',
   };
 
-  const sidebarItems = [home, dashboard];
+  const sidebarItems = ref([[home, dashboard]]);
 
   return { sidebarItems, toggleSidebar, sidebarModel };
 };
 
-export const useSidebarInjectionKey: InjectionKey<
-  ReturnType<typeof useSidebar>
-> = Symbol('useSidebar');
+export const useSidebarInjectionKey: InjectionKey<ReturnType<typeof useSidebar>> =
+  Symbol('useSidebar');

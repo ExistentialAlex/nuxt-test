@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import {
-  AdtButton,
-  AdtCard,
-  AdtIcon,
-  AdtTextField,
-} from '@sky-uk/adtech-ui-components';
 import doublet from 'doublet';
 
 const route = useRoute();
@@ -40,27 +34,27 @@ watch(
 </script>
 
 <template>
-  <div class="grid place-items-center h-screen w-screen">
-    <AdtCard class="w-1/2">
-      <form class="flex flex-col gap-2" @submit.prevent="login">
+  <div class="grid h-screen w-screen place-items-center">
+    <UCard class="w-1/2">
+      <UForm :state="credentials" class="flex flex-col gap-2" @submit="login">
         <h2 class="text-center">Login</h2>
-        <AdtTextField v-model="credentials.email" type="email" label="Email" />
-        <AdtTextField
-          v-model="credentials.password"
-          type="password"
-          label="Password"
-        />
-        <AdtButton class="mt-4" type="submit">Login</AdtButton>
+        <UFormField label="Email">
+          <UInput v-model="credentials.email" type="email" class="w-full" />
+        </UFormField>
+        <UFormField label="Password">
+          <UInput v-model="credentials.password" type="password" class="w-full" />
+        </UFormField>
+        <UButton class="mt-4 text-center" type="submit">Login</UButton>
         <hr class="my-3" />
         <button
-          class="bg-neutral-800 hover:bg-neutral-900 transition-colors text-neutral-100 rounded-sm flex items-center justify-center px-3 py-2"
+          class="flex items-center justify-center rounded-sm bg-neutral-700 px-3 py-2 text-neutral-100 transition-colors hover:bg-neutral-800"
           type="button"
           @click="openInPopup('/auth/github')"
         >
-          <AdtIcon model-value="f-github" class="mr-3" icon-color="50" />
+          <UIcon name="i-fe-github" class="mr-3" />
           Login with Github
         </button>
-      </form>
-    </AdtCard>
+      </UForm>
+    </UCard>
   </div>
 </template>
