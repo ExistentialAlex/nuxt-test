@@ -1,17 +1,24 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import AppNavbar from '~/components/app-navbar.vue';
-import { injectStrict } from '@sky-uk/adtech-vue-utils';
 import type { IAppBreadcrumb } from '~/types';
 
 const { loggedIn, user } = useUserSession();
-const { sidebarModel, sidebarItems } = injectStrict(useSidebarInjectionKey);
+const { sidebarModel, sidebarItems } = inject(useSidebarInjectionKey, {
+  sidebarItems: ref([]),
+  sidebarModel: ref(true),
+  toggleSidebar: () => true,
+});
 </script>
 <template>
   <div class="[ app ] flex min-h-screen">
-    <div v-if="loggedIn" class="flex h-screen flex-col border-r border-neutral-800 p-4">
+    <div
+      v-if="loggedIn"
+      class="flex h-screen flex-col border-r border-neutral-200 p-4 dark:border-neutral-700"
+    >
       <div class="mb-4 flex items-center gap-3">
         <UAvatar :alt="user?.name" />
-        <div v-if="!sidebarModel" class="flex flex-col justify-center whitespace-nowrap">
+        <div v-if="sidebarModel" class="flex flex-col justify-center whitespace-nowrap">
           <h5 id="user-name" data-testid="user-name" class="text-xs">
             {{ user?.name }}
           </h5>
@@ -21,7 +28,7 @@ const { sidebarModel, sidebarItems } = injectStrict(useSidebarInjectionKey);
         </div>
       </div>
       <UNavigationMenu
-        :collapsed="sidebarModel"
+        :collapsed="!sidebarModel"
         :items="sidebarItems"
         orientation="vertical"
         variant="pill"

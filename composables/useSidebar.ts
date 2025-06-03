@@ -22,10 +22,20 @@ export const useSidebar = (sidebarModel: Ref<boolean>) => {
     icon: 'i-fe-browser',
   };
 
-  const sidebarItems = ref([[home, dashboard]]);
+  const users: NavigationMenuItem[] = [
+    {
+      value: 'users-list',
+      label: 'Users',
+      to: '/users',
+      icon: 'i-fe-user',
+    },
+  ];
+
+  const sidebarItems = ref([[home, dashboard], users]);
 
   return { sidebarItems, toggleSidebar, sidebarModel };
 };
 
-export const useSidebarInjectionKey: InjectionKey<ReturnType<typeof useSidebar>> =
-  Symbol('useSidebar');
+export const useSidebarInjectionKey: InjectionKey<ReturnType<typeof useSidebar>> = Symbol(
+  'useSidebar'
+) as InjectionKey<ReturnType<typeof useSidebar>>;

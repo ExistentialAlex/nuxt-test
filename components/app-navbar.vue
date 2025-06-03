@@ -65,7 +65,7 @@ const sidebarValue = computed({
 <template>
   <nav
     id="topnav"
-    class="sticky top-0 z-10 flex w-full items-center border-b border-neutral-800 p-4"
+    class="sticky top-0 z-10 flex w-full items-center border-b border-neutral-200 p-4 dark:border-neutral-700"
   >
     <UButton
       variant="ghost"
@@ -74,7 +74,11 @@ const sidebarValue = computed({
       data-testid="topnav-sidebar-toggle"
       @click="sidebarValue = !sidebarValue"
     >
-      <UIcon :name="!sidebarValue ? 'i-fe-arrow-left' : 'i-fe-arrow-right'" />
+      <UIcon
+        name="i-fe-arrow-left"
+        class="transition-transform duration-500"
+        :class="[{ 'rotate-180': !sidebarValue }]"
+      />
     </UButton>
     <UBreadcrumb v-if="!!processedBreadcrumbs.length" :items="processedBreadcrumbs" />
     <UPopover class="ml-auto">
