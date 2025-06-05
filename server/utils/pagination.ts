@@ -1,4 +1,4 @@
-export const usePagination = <T>(dataset: T[], page: number, limit: number = 25) => {
+export const paginate = <T>(dataset: T[], page: number, limit: number = 25) => {
   const start = (page - 1) * limit;
   const end = page * limit;
 

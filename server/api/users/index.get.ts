@@ -1,5 +1,4 @@
 import type { User } from '#auth-utils';
-import { usePagination } from '~/server/utils/pagination';
 
 export default defineEventHandler(async (event) => {
   const { page, limit } = getQuery(event);
@@ -15,5 +14,5 @@ export default defineEventHandler(async (event) => {
     users.push({ name: `User ${i + 1}`, jobTitle: 'Developer' });
   }
 
-  return usePagination(users, Number(page), limit ? Number(limit) : undefined);
+  return paginate(users, Number(page), limit ? Number(limit) : undefined);
 });

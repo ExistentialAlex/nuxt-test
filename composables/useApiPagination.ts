@@ -4,6 +4,7 @@ import type { AvailableRouterMethod, NitroFetchRequest } from 'nitropack';
 import type { DefaultAsyncDataValue } from 'nuxt/app/defaults';
 import type { FetchError } from 'ofetch';
 import { destr } from 'destr';
+import { deepEqual } from 'fast-equals';
 
 type ColumnSort = {
   id: string;
@@ -39,42 +40,29 @@ export const useApiPagination = async <
   const router = useRouter();
 
   onBeforeMount(() => {
-    page.value = getQueryParamValue('page', (v) => Number(v), defaultPage);
-    limit.value = getQueryParamValue('limit', (v) => Number(v), defaultLimit);
-    sort.value = getQueryParamValue('sort', (v) => destr<ColumnSort[]>(v), defaultSort);
-    search.value = getQueryParamValue('search', (v) => v, defaultSearch);
+    page.value = getQueryParamValue(route, 'page', (v) => Number(v), defaultPage);
+    limit.value = getQueryParamValue(route, 'limit', (v) => Number(v), defaultLimit);
+    sort.value = getQueryParamValue(route, 'sort', (v) => destr<ColumnSort[]>(v), defaultSort);
+    search.value = getQueryParamValue(route, 'search', (v) => v, defaultSearch);
   });
 
-  const getQueryParamValue = <T>(key: string, converter: (v: string) => T, defaultValue: T): T => {
-    const v = route.query[key];
-    return v && !Array.isArray(v) ? converter(v) : defaultValue;
-  };
-
-  const hasValueChanged = <T>(oldV: T, newV: T) => {
-    if (Array.isArray(oldV) && Array.isArray(newV)) {
-      return JSON.stringify(oldV) !== JSON.stringify(newV);
-    }
-
-    return oldV !== newV;
-  };
-
   const page = useState<number>(`${key}.page`, () =>
-    getQueryParamValue('page', (v) => Number(v), defaultPage)
+    getQueryParamValue(route, 'page', (v) => Number(v), defaultPage)
   );
   const search = useState<string>(`${key}.search`, () =>
-    shallowRef(getQueryParamValue('search', (v) => v, defaultSearch))
+    shallowRef(getQueryParamValue(route, 'search', (v) => v, defaultSearch))
   );
   const limit = useState<number>(`${key}.limit`, () =>
-    getQueryParamValue('limit', (v) => Number(v), defaultLimit)
+    getQueryParamValue(route, 'limit', (v) => Number(v), defaultLimit)
   );
   const sort = useState<ColumnSort[]>(`${key}.sort`, () =>
-    getQueryParamValue('sort', (v) => destr<ColumnSort[]>(v), defaultSort)
+    getQueryParamValue(route, 'sort', (v) => destr<ColumnSort[]>(v), defaultSort)
   );
 
-  const pageChanged = computed(() => hasValueChanged(defaultPage, page.value));
-  const limitChanged = computed(() => hasValueChanged(defaultLimit, limit.value));
-  const sortChanged = computed(() => hasValueChanged(defaultSort, sort.value));
-  const searchChanged = computed(() => hasValueChanged(defaultSearch, debouncedSearch.value));
+  const pageChanged = computed(() => !deepEqual(defaultPage, page.value));
+  const limitChanged = computed(() => !deepEqual(defaultLimit, limit.value));
+  const sortChanged = computed(() => !deepEqual(defaultSort, sort.value));
+  const searchChanged = computed(() => !deepEqual(defaultSearch, debouncedSearch.value));
 
   const debouncedSearch = refDebounced(search, 500);
 
@@ -94,6 +82,7 @@ export const useApiPagination = async <
       },
       key: `${key}.data`,
       onResponse() {
+        // Store the page changes in the current route to allow sharing the values around.
         router.replace({
           query: {
             ...(pageChanged.value && { page: page.value }),
@@ -125,9 +114,9 @@ export const useApiPagination = async <
   >(request, options.value);
 
   watch([sort, debouncedSearch, limit], ([sort, search, limit], [oldSort, oldSearch, oldLimit]) => {
-    const limitChanged = hasValueChanged(oldLimit, limit);
-    const sortChanged = hasValueChanged(oldSort, sort);
-    const searchChanged = hasValueChanged(oldSearch, search);
+    const limitChanged = !deepEqual(oldLimit, limit);
+    const sortChanged = !deepEqual(oldSort, sort);
+    const searchChanged = !deepEqual(oldSearch, search);
 
     if (!sortChanged && !searchChanged && !limitChanged) {
       return;

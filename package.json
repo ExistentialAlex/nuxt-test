@@ -22,6 +22,7 @@
     "@vueuse/nuxt": "13.3.0",
     "doublet": "^1.0.1",
     "eslint": "9.28.0",
+    "fast-equals": "^5.2.2",
     "nuxt": "3.17.5",
     "nuxt-auth-utils": "0.5.20",
     "pinia": "3.0.3",
