@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { injectStrict } from '@sky-uk/adtech-vue-utils';
 import type { IAppBreadcrumb } from '~~/shared/types';
 
 const { loggedIn, user } = useUserSession();
