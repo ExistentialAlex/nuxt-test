@@ -16,7 +16,6 @@
         :data="data?.results || []"
         :pagination-options="{
           manualPagination: true,
-          getPaginationRowModel: getPaginationRowModel(),
         }"
         class="h-96 w-full"
         sticky
@@ -35,8 +34,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { getPaginationRowModel } from '@tanstack/vue-table';
-
 definePageMeta({
   middleware: ['authenticated'],
   breadcrumbs: [

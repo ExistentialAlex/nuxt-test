@@ -3,7 +3,7 @@ import * as locales from '@nuxt/ui/locale';
 
 const { locale } = useI18n();
 
-const sidebarModel = ref(true);
+const sidebarModel = useState('sidebar-model', () => true);
 const sidebar = useSidebar(sidebarModel);
 
 provide(useSidebarInjectionKey, sidebar);

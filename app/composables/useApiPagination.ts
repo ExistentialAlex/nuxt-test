@@ -30,7 +30,7 @@ export const useApiPagination = async <
   _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
   DataT = _ResT,
   PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT extends null = DefaultAsyncDataValue,
+  DefaultT extends undefined = DefaultAsyncDataValue,
 >(
   key: string,
   request: Ref<ReqT> | ReqT | (() => ReqT),
@@ -50,7 +50,7 @@ export const useApiPagination = async <
     getQueryParamValue(route, 'page', (v) => Number(v), defaultPage)
   );
   const search = useState<string>(`${key}.search`, () =>
-    shallowRef(getQueryParamValue(route, 'search', (v) => v, defaultSearch))
+    getQueryParamValue(route, 'search', (v) => v, defaultSearch)
   );
   const limit = useState<number>(`${key}.limit`, () =>
     getQueryParamValue(route, 'limit', (v) => Number(v), defaultLimit)

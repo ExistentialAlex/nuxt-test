@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { injectStrict } from '@sky-uk/adtech-vue-utils';
 import type { IAppBreadcrumb } from '~~/shared/types';
 
 const { loggedIn, user } = useUserSession();
-const { sidebarModel, sidebarItems } = inject(useSidebarInjectionKey, {
-  sidebarItems: ref([]),
-  sidebarModel: ref(true),
-  toggleSidebar: () => true,
-});
+const { sidebarModel, sidebarItems } = injectStrict(useSidebarInjectionKey);
 </script>
 <template>
   <div class="[ app ] flex min-h-screen">
