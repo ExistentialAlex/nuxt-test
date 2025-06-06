@@ -3,7 +3,7 @@ import { injectStrict } from '@sky-uk/adtech-vue-utils';
 import type { IAppBreadcrumb } from '~~/shared/types';
 
 const { loggedIn, user } = useUserSession();
-const { sidebarModel, sidebarItems } = injectStrict(useSidebarInjectionKey);
+const { sidebarModel, sidebarItems } = useSidebar();
 </script>
 <template>
   <div class="[ app ] flex min-h-screen">

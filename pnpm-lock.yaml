@@ -26,9 +26,6 @@ importers:
       '@pinia/nuxt':
         specifier: 0.11.1
         version: 0.11.1(magicast@0.3.5)(pinia@3.0.3(typescript@5.8.3)(vue@3.5.16(typescript@5.8.3)))
-      '@sky-uk/adtech-vue-utils':
-        specifier: ^0.44.1
-        version: 0.44.1(typescript@5.8.3)
       '@tailwindcss/vite':
         specifier: 4.1.8
         version: 4.1.8(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(yaml@2.8.0))
@@ -1375,9 +1372,6 @@ packages:
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
-
-  '@sky-uk/adtech-vue-utils@0.44.1':
-    resolution: {integrity: sha512-NPG0LhHFay1S+/mdcPtg56gLxPBDPlhBUl5QUhcsJv3CdMy0JASSm13NJ7qrhKPSowLyfQBy+aaNsN5JOOn2IA==, tarball: https://npm.pkg.github.com/download/@sky-uk/adtech-vue-utils/0.44.1/440027afe1d896ac9212268284be2648eedf423f}
 
   '@speed-highlight/core@1.2.7':
     resolution: {integrity: sha512-0dxmVj4gxg3Jg879kvFS/msl4s9F3T9UXC1InxgOf7t5NvcPD97u/WTA5vL/IxWHMn7qSxBozqrnnE2wvl1m8g==}
@@ -6939,12 +6933,6 @@ snapshots:
   '@sindresorhus/is@7.0.2': {}
 
   '@sindresorhus/merge-streams@2.3.0': {}
-
-  '@sky-uk/adtech-vue-utils@0.44.1(typescript@5.8.3)':
-    dependencies:
-      vue: 3.5.16(typescript@5.8.3)
-    transitivePeerDependencies:
-      - typescript
 
   '@speed-highlight/core@1.2.7': {}
 

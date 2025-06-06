@@ -1,7 +1,9 @@
 import { useI18n } from 'vue-i18n';
 
-export const useSidebar = (sidebarModel: Ref<boolean>) => {
+export const useSidebar = () => {
   const { t } = useI18n();
+
+  const sidebarModel = useState('sidebar-model', () => true);
 
   const toggleSidebar = () => (sidebarModel.value = !sidebarModel.value);
 
