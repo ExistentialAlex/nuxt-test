@@ -59,10 +59,10 @@ export const useApiPagination = async <
     getQueryParamValue(route, 'sort', (v) => destr<ColumnSort[]>(v), defaultSort)
   );
 
-  const pageChanged = computed(() => !deepEqual(defaultPage, page.value));
-  const limitChanged = computed(() => !deepEqual(defaultLimit, limit.value));
-  const sortChanged = computed(() => !deepEqual(defaultSort, sort.value));
-  const searchChanged = computed(() => !deepEqual(defaultSearch, debouncedSearch.value));
+  const defaultPageChanged = computed(() => !deepEqual(defaultPage, page.value));
+  const defaultLimitChanged = computed(() => !deepEqual(defaultLimit, limit.value));
+  const defaultSortChanged = computed(() => !deepEqual(defaultSort, sort.value));
+  const defaultSearchChanged = computed(() => !deepEqual(defaultSearch, debouncedSearch.value));
 
   const debouncedSearch = refDebounced(search, 500);
 
@@ -85,10 +85,10 @@ export const useApiPagination = async <
         // Store the page changes in the current route to allow sharing the values around.
         router.replace({
           query: {
-            ...(pageChanged.value && { page: page.value }),
-            ...(sortChanged.value && { sort: JSON.stringify(sort.value) }),
-            ...(limitChanged.value && { limit: limit.value }),
-            ...(searchChanged.value && { search: search.value }),
+            ...(defaultPageChanged.value && { page: page.value }),
+            ...(defaultSortChanged.value && { sort: JSON.stringify(sort.value) }),
+            ...(defaultLimitChanged.value && { limit: limit.value }),
+            ...(defaultSearchChanged.value && { search: search.value }),
           },
         });
       },
