@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { IAppBreadcrumb } from '~/types';
 import type { BreadcrumbItem } from '@nuxt/ui';
 
 export interface IAppNavbarProps {
@@ -23,7 +22,6 @@ const logout = async () => {
   await navigateTo('/login');
 };
 
-const mode = useColorMode();
 const colorModeTabs = [
   {
     value: 'auto',
@@ -92,7 +90,7 @@ const sidebarValue = computed({
           <p class="mb-2 text-xs">
             {{ t('navbar.colorMode.title') }}
           </p>
-          <UTabs v-model="mode.value" :items="colorModeTabs" :content="false" />
+          <UTabs v-model="$colorMode.preference" :items="colorModeTabs" :content="false" />
         </div>
       </template>
     </UPopover>

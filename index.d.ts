@@ -1,5 +1,3 @@
-import type { IAppBreadcrumb } from '~/types';
-
 interface RouteRolePermission {
   has?: string;
   hasAll?: string[];

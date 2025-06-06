@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue';
-import AppNavbar from '~/components/app-navbar.vue';
-import type { IAppBreadcrumb } from '~/types';
+import type { IAppBreadcrumb } from '~~/shared/types';
 
 const { loggedIn, user } = useUserSession();
 const { sidebarModel, sidebarItems } = inject(useSidebarInjectionKey, {

@@ -1,4 +1,3 @@
-import { RouteHrefs } from '~/types';
 import type { InjectionKey, Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { NavigationMenuItem } from '@nuxt/ui';
