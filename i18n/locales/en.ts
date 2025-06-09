@@ -1,4 +1,4 @@
-export const en = {
+export default {
   navbar: {
     quickSettings: 'Quick Settings',
     colorMode: {
@@ -130,5 +130,3 @@ export const en = {
     },
   },
 };
-
-export type MessageSchema = typeof en;

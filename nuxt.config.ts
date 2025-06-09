@@ -26,6 +26,9 @@ export default defineNuxtConfig({
     redirectPath: '/dashboard',
   },
   i18n: {
+    defaultLocale: 'en',
+    locales: [{ code: 'en', name: 'English', file: 'en.ts' }],
+    strategy: 'no_prefix',
     bundle: {
       optimizeTranslationDirective: false,
     },

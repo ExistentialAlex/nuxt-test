@@ -10,7 +10,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test:unit": "vitest"
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "@nuxt/eslint": "1.4.1",

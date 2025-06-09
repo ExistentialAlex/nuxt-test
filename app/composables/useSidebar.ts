@@ -1,5 +1,3 @@
-import { useI18n } from 'vue-i18n';
-
 export const useSidebar = () => {
   const { t } = useI18n();
 
@@ -25,7 +23,7 @@ export const useSidebar = () => {
     [
       {
         value: 'users-list',
-        label: 'Users',
+        label: t('sidebar.users'),
         to: '/users',
         icon: 'i-fe-user',
       },
