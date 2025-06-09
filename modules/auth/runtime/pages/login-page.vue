@@ -35,7 +35,7 @@ watch(
 
 <template>
   <div class="grid h-screen w-screen place-items-center">
-    <UCard class="w-1/2">
+    <UCard class="w-1/2" data-testid="login-form">
       <UForm :state="credentials" class="flex flex-col gap-2" @submit="login">
         <h2 class="text-center">Login</h2>
         <UFormField label="Email">

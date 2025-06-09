@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
+  telemetry: false,
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',
@@ -16,6 +17,10 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@pinia/nuxt',
     '@nuxt/ui',
+    '@nuxt/icon',
+    '@nuxt/fonts',
+    '@nuxtjs/color-mode',
+    '@nuxt/devtools',
     '@nuxt/test-utils/module',
   ],
   css: ['~/assets/css/index.css'],
