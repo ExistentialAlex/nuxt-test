@@ -39,16 +39,29 @@ watch(
       <UForm :state="credentials" class="flex flex-col gap-2" @submit="login">
         <h2 class="text-center">Login</h2>
         <UFormField label="Email">
-          <UInput v-model="credentials.email" type="email" class="w-full" />
+          <UInput
+            v-model="credentials.email"
+            type="email"
+            class="w-full"
+            data-testid="login-form:email"
+          />
         </UFormField>
         <UFormField label="Password">
-          <UInput v-model="credentials.password" type="password" class="w-full" />
+          <UInput
+            v-model="credentials.password"
+            type="password"
+            class="w-full"
+            data-testid="login-form:password"
+          />
         </UFormField>
-        <UButton class="mt-4 text-center" type="submit">Login</UButton>
+        <UButton class="mt-4 text-center" type="submit" data-testid="login-form:submit"
+          >Login</UButton
+        >
         <hr class="my-3" />
         <button
           class="flex items-center justify-center rounded-sm bg-neutral-700 px-3 py-2 text-neutral-100 transition-colors hover:bg-neutral-800"
           type="button"
+          data-testid="login-form:github"
           @click="openInPopup('/auth/github')"
         >
           <UIcon name="i-fe-github" class="mr-3" />
