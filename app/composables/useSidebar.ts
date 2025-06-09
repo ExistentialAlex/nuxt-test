@@ -34,7 +34,3 @@ export const useSidebar = () => {
 
   return { sidebarItems, toggleSidebar, sidebarModel };
 };
-
-export const useSidebarInjectionKey: InjectionKey<ReturnType<typeof useSidebar>> = Symbol(
-  'useSidebar'
-) as InjectionKey<ReturnType<typeof useSidebar>>;
