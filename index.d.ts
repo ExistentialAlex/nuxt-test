@@ -1,3 +1,6 @@
+import { DefineLocaleMessage } from 'vue-i18n';
+import { MessageSchema } from './i18n/message-schema';
+
 interface RouteRolePermission {
   has?: string;
   hasAll?: string[];
@@ -11,6 +14,10 @@ declare module '#app' {
     requiresAuth?: boolean;
     breadcrumbs?: IAppBreadcrumb[];
   }
+}
+
+declare module 'vue-i18n' {
+  export interface DefineLocaleMessage extends MessageSchema {}
 }
 
 // It is always important to ensure you import/export something when augmenting a type
