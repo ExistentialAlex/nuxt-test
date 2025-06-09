@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@pinia/nuxt',
     '@nuxt/ui',
+    '@nuxt/test-utils/module',
   ],
   css: ['~/assets/css/index.css'],
   vite: {
