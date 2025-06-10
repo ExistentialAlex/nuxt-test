@@ -11,25 +11,15 @@
     </div>
     <hr class="my-4 border-neutral-200 dark:border-neutral-700" />
     <div class="flex flex-col items-center gap-4 p-8">
-      <UTable
+      <PaginatedTable
         v-model:pagination="pagination"
+        v-model:limit="limit"
+        v-model:page="page"
         :data="data?.results || []"
-        :pagination-options="{
-          manualPagination: true,
-        }"
-        class="h-96 w-full"
-        sticky
-        :loading="status === 'pending'"
+        :limit-items="limitItems"
+        :status="status"
+        :total-data="data?.count"
       />
-      <div class="grid w-full grid-cols-3 gap-4">
-        <USelect v-model="limit" :items="limitItems" class="w-24" />
-        <UPagination
-          v-model:page="page"
-          :items-per-page="limit"
-          :total="data?.count"
-          class="mx-auto"
-        />
-      </div>
     </div>
   </div>
 </template>
