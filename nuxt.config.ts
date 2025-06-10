@@ -11,7 +11,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',
-    '@nuxt/test-utils',
     'nuxt-auth-utils',
     '@vueuse/nuxt',
     '@nuxtjs/i18n',

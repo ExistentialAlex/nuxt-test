@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { IAppBreadcrumb } from '~~/shared/types';
-
 const { loggedIn, user } = useUserSession();
 const { sidebarModel, sidebarItems } = useSidebar();
 </script>

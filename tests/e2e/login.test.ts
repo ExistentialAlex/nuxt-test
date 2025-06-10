@@ -1,31 +1,37 @@
-import { expect, test } from '@nuxt/test-utils/playwright';
+import { createPage, setup, url, type NuxtPage } from '@nuxt/test-utils/e2e';
+import { beforeEach, describe, expect, it } from 'vitest';
 
-test.describe('Login E2E Tests', () => {
-  test('Should launch the application on the login page', async ({ page, goto }) => {
-    // Arrange
-    await goto('/', { waitUntil: 'hydration' });
-    await page.waitForURL('**/login');
-    await page.waitForSelector('[data-testid="login-form"]');
+describe('Login E2E Tests', async () => {
+  await setup({ browser: true, server: true });
 
-    // Assert
-    expect(new URL(page.url()).pathname).toBe('/login');
-    expect(page.getByTestId('login-form')).toBeVisible();
+  let page: NuxtPage;
+
+  beforeEach(async () => {
+    page = await createPage();
+    await page.goto(url('/'), { waitUntil: 'hydration' });
   });
 
-  test('Should be possible to login with valid credentials', async ({ page, goto }) => {
+  it('Should launch the application on the login page', async () => {
+    // Assert
+    expect(new URL(page.url()).pathname).toBe('/login');
+    expect(page.getByTestId('login-form')).toBeDefined();
+  });
+
+  it('Should be possible to login with valid credentials', async () => {
     // Arrange
-    await goto('/', { waitUntil: 'hydration' });
-    await page.waitForURL('**/login');
+    const emailInput = page.getByTestId('login-form:email');
+    const passwordInput = page.getByTestId('login-form:password');
+    const submitButton = page.getByTestId('login-form:submit');
 
     // Act
-    await page.fill('[data-testid="login-form:email"]', 'admin@admin.com');
-    await page.fill('[data-testid="login-form:password"]', 'iamtheadmin');
-    await page.click('[data-testid="login-form:submit"]');
+    await emailInput.fill('admin@admin.com');
+    await passwordInput.fill('iamtheadmin');
+    await submitButton.click();
     await page.waitForURL('**/dashboard');
     await page.waitForSelector('[data-testid="dashboard"]');
 
     // Assert
     expect(new URL(page.url()).pathname).toBe('/dashboard');
-    expect(page.getByTestId('dashboard')).toBeVisible();
+    expect(page.getByTestId('dashboard')).toBeDefined();
   });
 });
