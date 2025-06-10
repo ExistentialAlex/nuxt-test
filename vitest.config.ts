@@ -7,7 +7,7 @@ export default defineVitestConfig({
     root: './',
     coverage: {
       provider: 'istanbul',
-      include: ['app/**/*.{ts,vue}', 'modules/**/*.{ts,vue}', 'shared/**/*.ts'],
+      include: ['app/**/*.{ts,vue}', 'modules/**/*.{ts,vue}', 'shared/**/*.ts', 'server/**/*.ts'],
       exclude: ['shared/types/**'],
       thresholds: {
         statements: 80,
