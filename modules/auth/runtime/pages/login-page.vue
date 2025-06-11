@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import z from 'zod';
 import doublet from 'doublet';
 
 const route = useRoute();
 const { fetch: refreshSession, openInPopup, loggedIn } = useUserSession();
-const credentials = reactive({
+
+const schema = z.object({
+  email: z.string().email('Invalid email'),
+  password: z.string().min(8, 'Must be at least 8 characters'),
+});
+type Schema = z.output<typeof schema>;
+
+const credentials = reactive<Partial<Schema>>({
   email: '',
   password: '',
 });
@@ -23,8 +31,8 @@ const login = async () => {
 
 watch(
   loggedIn,
-  async () => {
-    if (loggedIn.value) {
+  async (loggedIn) => {
+    if (loggedIn) {
       await refreshSession();
       await navigateTo(route.meta.redirectPath as string);
     }
@@ -36,9 +44,15 @@ watch(
 <template>
   <div class="grid h-screen w-screen place-items-center">
     <UCard class="w-1/2" data-testid="login-form">
-      <UForm :state="credentials" class="flex flex-col gap-2" @submit="login">
+      <UForm
+        :state="credentials"
+        :schema="schema"
+        class="flex flex-col gap-2"
+        data-testid="login-form"
+        @submit="login"
+      >
         <h2 class="text-center">Login</h2>
-        <UFormField label="Email">
+        <UFormField label="Email" name="email">
           <UInput
             v-model="credentials.email"
             type="email"
@@ -46,7 +60,7 @@ watch(
             data-testid="login-form:email"
           />
         </UFormField>
-        <UFormField label="Password">
+        <UFormField label="Password" name="password">
           <UInput
             v-model="credentials.password"
             type="password"
@@ -54,9 +68,9 @@ watch(
             data-testid="login-form:password"
           />
         </UFormField>
-        <UButton class="mt-4 text-center" type="submit" data-testid="login-form:submit"
-          >Login</UButton
-        >
+        <UButton class="mt-4 justify-center" type="submit" data-testid="login-form:submit">
+          Login
+        </UButton>
         <hr class="my-3" />
         <button
           class="flex items-center justify-center rounded-sm bg-neutral-700 px-3 py-2 text-neutral-100 transition-colors hover:bg-neutral-800"
