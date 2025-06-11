@@ -45,7 +45,7 @@
     "vue": "3.5.16",
     "vue-i18n": "^11.1.5",
     "vue-router": "4.5.1",
-    "zod": "3.25.57"
+    "zod": "3.25.60"
   },
   "devDependencies": {
     "@iconify-json/fe": "^1.2.2",
@@ -53,8 +53,8 @@
     "@nuxt/test-utils": "3.19.1",
     "@vitest/coverage-istanbul": "^3.2.2",
     "@vue/test-utils": "^2.4.6",
-    "happy-dom": "^17.6.3",
-    "playwright-core": "^1.52.0",
+    "happy-dom": "^18.0.1",
+    "playwright-core": "^1.53.0",
     "vitest": "^3.2.2"
   }
 }
