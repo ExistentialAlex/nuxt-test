@@ -22,6 +22,17 @@ export default defineNuxtConfig({
     '@nuxt/devtools',
     '@nuxt/test-utils/module',
   ],
+  pages: {
+    pattern: ['**/*.vue', '!**/components/**'],
+  },
+  components: [
+    '~/components',
+    {
+      path: '~/pages',
+      pattern: '**/components/**',
+      pathPrefix: false,
+    },
+  ],
   css: ['~/assets/css/index.css'],
   vite: {
     plugins: [tailwindcss()],
