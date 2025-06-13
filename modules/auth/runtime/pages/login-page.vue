@@ -2,18 +2,13 @@
 import z from 'zod';
 import doublet from 'doublet';
 import { FetchError } from 'ofetch';
+import { loginSchema, type LoginSchema } from '../schemas';
 
 const route = useRoute();
 const { fetch: refreshSession, openInPopup, loggedIn } = useUserSession();
 const { add } = useToast();
 
-const schema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Must be at least 8 characters'),
-});
-type Schema = z.output<typeof schema>;
-
-const credentials = reactive<Partial<Schema>>({
+const credentials = reactive<Partial<LoginSchema>>({
   email: '',
   password: '',
 });
@@ -54,7 +49,7 @@ watch(
     <UCard class="w-1/2" data-testid="login-form">
       <UForm
         :state="credentials"
-        :schema="schema"
+        :schema="loginSchema"
         class="flex flex-col gap-2"
         data-testid="login-form"
         @submit="login"
