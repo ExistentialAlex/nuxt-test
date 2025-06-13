@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import z from 'zod';
 import doublet from 'doublet';
+import { FetchError } from 'ofetch';
 
 const route = useRoute();
 const { fetch: refreshSession, openInPopup, loggedIn } = useUserSession();
+const { add } = useToast();
 
 const schema = z.object({
   email: z.string().email('Invalid email'),
@@ -22,7 +24,13 @@ const login = async () => {
   });
 
   if (err) {
-    return alert('Bad credentials');
+    // Raise toast with error.
+    add({
+      title: 'Login failed',
+      description: (err as FetchError).data.message || 'An error occurred while logging in.',
+      color: 'error',
+    });
+    return;
   }
 
   await refreshSession();
