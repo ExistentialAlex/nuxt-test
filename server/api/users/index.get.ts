@@ -1,7 +1,7 @@
 import type { User } from '#auth-utils';
 
 export default defineEventHandler(async (event) => {
-  const { page, limit } = getQuery(event);
+  const { page, limit, search, sort } = getQuery(event);
 
   const users: User[] = [
     {

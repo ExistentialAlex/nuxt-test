@@ -1,15 +1,8 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
 import type { FetchResult, UseFetchOptions } from '#app';
 import type { AvailableRouterMethod, NitroFetchRequest } from 'nitropack';
-import type { DefaultAsyncDataValue } from 'nuxt/app/defaults';
 import type { FetchError } from 'ofetch';
 import { destr } from 'destr';
 import { deepEqual } from 'fast-equals';
-
-type ColumnSort = {
-  id: string;
-  desc: boolean;
-};
 
 type KeysOf<T> = Array<T extends T ? (keyof T extends string ? keyof T : never) : never>;
 
@@ -30,7 +23,7 @@ export const useApiPagination = async <
   _ResT = ResT extends void ? FetchResult<ReqT, Method> : ResT,
   DataT = _ResT,
   PickKeys extends KeysOf<DataT> = KeysOf<DataT>,
-  DefaultT extends undefined = DefaultAsyncDataValue,
+  DefaultT extends undefined = undefined,
 >(
   key: string,
   request: Ref<ReqT> | ReqT | (() => ReqT),
@@ -42,7 +35,7 @@ export const useApiPagination = async <
   onBeforeMount(() => {
     page.value = getQueryParamValue(route, 'page', (v) => Number(v), defaultPage);
     limit.value = getQueryParamValue(route, 'limit', (v) => Number(v), defaultLimit);
-    sort.value = getQueryParamValue(route, 'sort', (v) => destr<ColumnSort[]>(v), defaultSort);
+    sort.value = getQueryParamValue(route, 'sort', (v) => convertQueryStringToSort(v), defaultSort);
     search.value = getQueryParamValue(route, 'search', (v) => v, defaultSearch);
   });
 
@@ -86,7 +79,7 @@ export const useApiPagination = async <
         router.replace({
           query: {
             ...(defaultPageChanged.value && { page: page.value }),
-            ...(defaultSortChanged.value && { sort: JSON.stringify(sort.value) }),
+            ...(defaultSortChanged.value && { sort: convertSortToQueryString(sort.value) }),
             ...(defaultLimitChanged.value && { limit: limit.value }),
             ...(defaultSearchChanged.value && { search: search.value }),
           },

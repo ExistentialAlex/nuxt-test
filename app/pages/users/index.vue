@@ -15,15 +15,21 @@
         v-model:pagination="pagination"
         v-model:limit="limit"
         v-model:page="page"
+        v-model:sort="sort"
         :data="data?.results || []"
         :limit-items="limitItems"
         :status="status"
         :total-data="data?.count"
+        :columns="columns"
       />
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import type { User } from '#auth-utils';
+import { UButton } from '#components';
+import type { TableColumn } from '@nuxt/ui';
+
 definePageMeta({
   middleware: ['authenticated'],
   breadcrumbs: [
@@ -34,7 +40,33 @@ definePageMeta({
   ],
 });
 
-const { limit, page, limitItems, pagination, data, status, search } = await useApiPagination(
+const columns: TableColumn<User>[] = [
+  {
+    accessorKey: 'name',
+    header: ({ column }) => {
+      const isSorted = column.getIsSorted();
+
+      return h(UButton, {
+        color: 'neutral',
+        variant: 'ghost',
+        label: 'Name',
+        icon: isSorted
+          ? isSorted === 'asc'
+            ? 'i-lucide-arrow-up-narrow-wide'
+            : 'i-lucide-arrow-down-wide-narrow'
+          : 'i-lucide-arrow-up-down',
+        class: '-mx-2.5',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+      });
+    },
+  },
+  {
+    accessorKey: 'jobTitle',
+    header: 'Job Title',
+  },
+];
+
+const { limit, page, limitItems, pagination, data, status, search, sort } = await useApiPagination(
   'users-list',
   '/api/users'
 );
