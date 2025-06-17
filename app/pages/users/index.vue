@@ -26,8 +26,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { User } from '#auth-utils';
-import { UButton } from '#components';
+import type { UserSchema } from '~~/shared/schemas';
+import { UButton, ULink } from '#components';
 import type { TableColumn } from '@nuxt/ui';
 
 definePageMeta({
@@ -40,9 +40,19 @@ definePageMeta({
   ],
 });
 
-const columns: TableColumn<User>[] = [
+const columns: TableColumn<UserSchema>[] = [
   {
     accessorKey: 'name',
+    cell: ({ row }) => {
+      return h(
+        ULink,
+        {
+          to: `/users/${row.original.id}`,
+          class: 'text-primary-500 hover:text-primary-600 dark:hover:text-primary-400',
+        },
+        () => row.getValue('name')
+      );
+    },
     header: ({ column }) => {
       const isSorted = column.getIsSorted();
 

@@ -15,7 +15,7 @@ const { sidebarModel, sidebarItems } = useSidebar();
             {{ user?.name }}
           </h5>
           <span id="user-role" data-testid="user-role" class="text-start text-[10px]">
-            Developer
+            {{ user?.jobTitle }}
           </span>
         </div>
       </div>

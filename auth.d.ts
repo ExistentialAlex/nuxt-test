@@ -1,10 +1,8 @@
+import type { UserSchema } from './shared/schemas';
+
 // auth.d.ts
 declare module '#auth-utils' {
-  interface User {
-    githubId?: number;
-    name: string;
-    jobTitle: string;
-  }
+  interface User extends UserSchema {}
 }
 
 export {};
