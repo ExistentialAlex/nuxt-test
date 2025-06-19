@@ -1,4 +1,11 @@
-import { userSchema, type UserSchema } from './user.schema';
+import {
+  userSchema,
+  createUserSchema,
+  updateUserSchema,
+  type UserSchema,
+  type CreateUserSchema,
+  type UpdateUserSchema,
+} from './user.schema';
 
-export { userSchema };
-export type { UserSchema };
+export { userSchema, createUserSchema, updateUserSchema };
+export type { UserSchema, CreateUserSchema, UpdateUserSchema };

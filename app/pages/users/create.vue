@@ -1,6 +1,3 @@
-<template>
-  <h1>Create User</h1>
-</template>
 <script setup lang="ts">
 definePageMeta({
   middleware: ['authenticated'],
@@ -16,3 +13,6 @@ definePageMeta({
   ],
 });
 </script>
+<template>
+  <h1>Create User</h1>
+</template>

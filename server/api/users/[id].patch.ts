@@ -1,5 +1,4 @@
-import { z } from 'zod';
-import { userSchema, UserSchema } from '~~/shared/schemas';
+import { updateUserSchema } from '~~/shared/schemas';
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event);
@@ -13,9 +12,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const partialUserSchema = userSchema.partial();
-
-  const { name, jobTitle } = await readValidatedBody(event, partialUserSchema.parse);
+  const { name, jobTitle } = await readValidatedBody(event, updateUserSchema.parse);
 
   return { id, name, jobTitle };
 });

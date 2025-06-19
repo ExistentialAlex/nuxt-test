@@ -27,8 +27,9 @@
 </template>
 <script setup lang="ts">
 import type { UserSchema } from '~~/shared/schemas';
-import { UButton, ULink } from '#components';
+import { UButton, UDropdownMenu, ULink } from '#components';
 import type { TableColumn } from '@nuxt/ui';
+import type { Row } from '@tanstack/vue-table';
 
 definePageMeta({
   middleware: ['authenticated'],
@@ -39,6 +40,8 @@ definePageMeta({
     },
   ],
 });
+
+const toast = useToast();
 
 const columns: TableColumn<UserSchema>[] = [
   {
@@ -74,7 +77,69 @@ const columns: TableColumn<UserSchema>[] = [
     accessorKey: 'jobTitle',
     header: 'Job Title',
   },
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      return h(
+        'div',
+        { class: 'text-right' },
+        h(
+          UDropdownMenu,
+          {
+            content: {
+              align: 'end',
+            },
+            items: getRowItems(row),
+            'aria-label': 'Actions dropdown',
+          },
+          () =>
+            h(UButton, {
+              icon: 'i-lucide-ellipsis-vertical',
+              color: 'neutral',
+              variant: 'ghost',
+              class: 'ml-auto',
+              'aria-label': 'Actions dropdown',
+            })
+        )
+      );
+    },
+  },
 ];
+
+const getRowItems = (row: Row<UserSchema>) => {
+  return [
+    {
+      type: 'label',
+      label: 'Actions',
+    },
+    {
+      label: 'Copy User ID',
+      icon: 'i-lucide-copy',
+      onSelect() {
+        navigator.clipboard.writeText(row.original.id.toString());
+
+        toast.add({
+          title: 'User ID copied to clipboard!',
+          color: 'success',
+          icon: 'i-lucide-circle-check',
+        });
+      },
+    },
+    {
+      type: 'separator',
+    },
+    {
+      label: 'View',
+      onSelect: () => navigateTo(`/users/${row.original.id}`),
+      icon: 'i-lucide-eye',
+    },
+    {
+      label: 'Edit',
+      onSelect: () => navigateTo(`/users/edit/${row.original.id}`),
+      icon: 'i-lucide-edit',
+    },
+  ];
+};
 
 const { limit, page, limitItems, pagination, data, status, search, sort } = await useApiPagination(
   'users-list',

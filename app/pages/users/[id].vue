@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { FetchError } from 'ofetch';
+
 definePageMeta({
   middleware: ['authenticated'],
   breadcrumbs: [
@@ -6,12 +8,29 @@ definePageMeta({
       to: '/users',
       label: 'users.breadcrumbs.list',
     },
+    {
+      to: '',
+      label: 'users.breadcrumbs.view',
+      params: { id: (route) => route.params.id as string },
+    },
   ],
 });
 
-const { id } = useRoute().params;
+const toast = useToast();
 
-const { data } = await useAsyncData('user:data', () => $fetch(`/api/users/${id}`));
+const { id } = useRoute().params;
+const { data, error } = await useAsyncData('user:data', () => $fetch(`/api/users/${id}`));
+
+watch(error, (err) => {
+  if (err) {
+    toast.add({
+      title: 'Error Fetching User Data',
+      description:
+        (err.data as FetchError).message || 'An error occurred while fetching user data.',
+      color: 'error',
+    });
+  }
+});
 </script>
 
 <template>
